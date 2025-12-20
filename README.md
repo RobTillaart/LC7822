@@ -91,11 +91,13 @@ Todo
 
 - improve documentation
 - get hardware to test
+- test reset() polarity.
 
 #### Should
 
 - add examples
-- add performance sketch
+  - performance sketch
+  - array sketch
 
 #### Could
 

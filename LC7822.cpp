@@ -36,7 +36,7 @@ bool LC7822::begin()
   if (_resetPin != 255)
   {
     pinMode(_resetPin, OUTPUT);
-    digitalWrite(_resetPin, LOW);
+    digitalWrite(_resetPin, LOW);  //  right polarity?
   }
   return true;
 }
@@ -49,7 +49,7 @@ bool LC7822::reset()
     digitalWrite(_resetPin, HIGH);
     delayMicroseconds(2);
     digitalWrite(_resetPin, LOW);
-    //  force all off.
+    //  force all off. needed? test...
     _switches = 0;
     _updateDevice();
     return true;
