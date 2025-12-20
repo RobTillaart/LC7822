@@ -7,7 +7,6 @@
 //     URL: https://github.com/RobTillaart/LC7822
 
 
-
 #include "LC7822.h"
 
 

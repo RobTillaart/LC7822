@@ -1,15 +1,16 @@
 //
-//    FILE: LC7822_demo.ino
+//    FILE: LC7822_getAddress.ino
 //  AUTHOR: Rob Tillaart
 // PURPOSE: test basic behaviour
-
 //     URL: https://github.com/RobTillaart/LC7822
 
 
 #include "LC7822.h"
 
 //  LC7822(dataPin, clockPin, cePin, sPin, resetPin);
-LC7822 LC(4,5,6,7);  //  no reset Pin.
+LC7821 LC21(4, 5, 6, 7); //  no reset Pin.
+LC7822 LC22(4, 5, 6, 7); //  no reset Pin.
+LC7823 LC23(4, 5, 6, 7); //  no reset Pin.
 
 
 void setup()
@@ -21,31 +22,17 @@ void setup()
   Serial.println(LC7822_LIB_VERSION);
   Serial.println();
 
-  if (LC.begin() == false)
-  {
-    Serial.println("error begin()");
-  }
-  //  tune timing.
-  LC.setMicroDelay(10);
+  LC21.begin();
+  LC22.begin();
+  LC23.begin();
+  Serial.println(LC21.getAddress());
+  Serial.println(LC22.getAddress());
+  Serial.println(LC23.getAddress());
 }
 
 
 void loop()
 {
-  //  set on, one by one
-  for (int sw = 0; sw < 8; sw ++)
-  {
-    LC.setSwitch(sw, 1);
-    delay(500);
-  }
-
-  // set off, one by one
-  for (int sw = 0; sw < 8; sw ++)
-  {
-    LC.setSwitch(sw, 0);
-    delay(500);
-  }
-  delay(2000);
 }
 
 

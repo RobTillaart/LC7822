@@ -6,8 +6,6 @@
 // VERSION: 0.1.0
 // PURPOSE: Arduino library for the LC7822 8 channel analogue switch.
 //     URL: https://github.com/RobTillaart/LC7822
-//
-//
 
 
 #include "Arduino.h"
@@ -23,6 +21,7 @@ public:
 
   bool    begin();
   bool    reset();
+  uint8_t getAddress() { return _address; };
 
   bool    setAll(uint8_t value);
   uint8_t getAll();

@@ -18,16 +18,16 @@ Arduino library for the LC7822 8 channel analogue switch.
 
 **Experimental**
 
-This library is to use LC7822 in Arduino context.
+This library is to use the LC7821/22/23 with an Arduino.
 
 The library is not tested with hardware yet.
 
-The library allows to set individual switches or all switches in one call. 
-Furthermore the library caches the current state of the switches. This allows to read back the state of the switches as bit mask or individually.
-
-
+The library allows to set the individual switches or all switches in one call. 
+Furthermore the library caches the current state of the switches. 
+This allows to read back the state of the switches as bit mask or individually.
 
 The library is expected to work for the LC7821 and LC7823 too.
+These have their own (derived) classes.
 
 Feedback, as always, is welcome.
 
@@ -45,18 +45,18 @@ Feedback, as always, is welcome.
 
 
 Effectively the S line sets the address bit A0, and works 
-in the library as a select pin.
+in the library as a select pin. When S == LOW, the device 
+is not selected, when S == HIGH the device is selected.
 
-In theory one can use the S pin to select between multiple devices 
-that use the same set of data and clock pin (like SPI).
+So in theory one can use the S pin to select between multiple 
+devices that use the same set of data and clock pin (like SPI).
 Only the one with the HIGH sPin should react. 
 **This need to be verified**
 
 
 ### Related
 
-- ?
-
+Todo
 
 
 ## Interface
@@ -70,6 +70,7 @@ Only the one with the HIGH sPin should react.
 - **LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t selectPin, uint8_t resetPin = 255)** Constructor, set pins needed.
 - **bool begin()** Initializes the IO pins.
 - **bool reset()** resets the device, returns false if reset Pin is not defined.
+- **uint8_t getAddress()** returns cached address (debugging).
 
 ### Switches
 
@@ -90,19 +91,16 @@ Only the one with the HIGH sPin should react.
 
 - improve documentation
 - get hardware to test
-- explain sPin is part of address
 
 #### Should
 
 - add examples
-- performance sketch
-- add unit tests
-
+- add performance sketch
 
 #### Could
 
-- add error handling
-- add getAddress() ?
+- add error handling?
+- add defaults for some parameters?
 
 
 #### Wont

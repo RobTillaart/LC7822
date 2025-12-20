@@ -41,9 +41,20 @@ unittest_teardown()
 
 unittest(test_constructor)
 {
-  LC7822 LC(4,5,6,7);  //  no reset Pin.
-  assertTrue(LC.begin());
-  assertFalse(LC.reset());
+  LC7821 LC21(4,5,6,7);  //  no reset Pin.
+  assertTrue(LC21.begin());
+  assertFalse(LC21.reset());
+  assertEqual(LC21.getAddress(), 13);
+
+  LC7822 LC22(4,5,6,7);  //  no reset Pin.
+  assertTrue(LC22.begin());
+  assertFalse(LC22.reset());
+  assertEqual(LC22.getAddress(), 11);
+
+  LC7823 LC23(4,5,6,7);  //  no reset Pin.
+  assertTrue(LC23.begin());
+  assertFalse(LC23.reset());
+  assertEqual(LC23.getAddress(), 15);
 }
 
 
