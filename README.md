@@ -94,10 +94,16 @@ Only the one with the HIGH sPin should react.
 
 #### Should
 
+- add examples
+- performance sketch
+- add unit tests
+
+
 #### Could
 
 - add error handling
-- add derived classes LC7821 + LC7823
+- add getAddress() ?
+
 
 #### Wont
 

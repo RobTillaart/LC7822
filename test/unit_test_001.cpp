@@ -39,15 +39,52 @@ unittest_teardown()
 }
 
 
-unittest(test_constants)
+unittest(test_constructor)
 {
-  assertEqual(1, 1);
+  LC7822 LC(4,5,6,7);  //  no reset Pin.
+  assertTrue(LC.begin());
+  assertFalse(LC.reset());
 }
 
 
-unittest(test_constructor)
+unittest(test_setAll)
 {
-  LC7822 obj;
+  LC7822 LC(4,5,6,7);  //  no reset Pin.
+  assertTrue(LC.begin());
+  for (int i = 0; i <  255; i += 47)
+  {
+    LC.setAll(i);
+    assertEqual(LC.getAll(), i);
+  }
+}
+
+
+unittest(test_setSwitch)
+{
+  LC7822 LC(4,5,6,7);  //  no reset Pin.
+  assertTrue(LC.begin());
+  for (int i = 0; i <  8; i++)
+  {
+    LC.setSwitch(i, 1);
+    assertTrue(LC.getSwitch(i));
+  }
+  for (int i = 0; i <  8; i++)
+  {
+    LC.setSwitch(i, 0);
+    assertFalse(LC.getSwitch(i));
+  }
+}
+
+
+unittest(test_microDelay)
+{
+  LC7822 LC(4,5,6,7);  //  no reset Pin.
+  assertTrue(LC.begin());
+  for (int i = 0; i <  5; i++)
+  {
+    LC.setMicroDelay(i);
+    assertEqual(LC.getMicroDelay(), i);
+  }
 }
 
 
