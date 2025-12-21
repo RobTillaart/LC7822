@@ -20,14 +20,23 @@ Arduino library for the LC7822 8 channel analogue switch.
 
 This library is to use the LC7821/22/23 with an Arduino.
 
+The library allows to set the switches induvidually or set all 
+switches in one call. 
+Furthermore the library caches the current state of the switches. 
+This allows to read back the state of the switches either as a
+bit mask or read them individually (from cache).
+
+The library uses a fixed address for the device, but allows 
+multiple devices on the same "data pins" as every object should
+have an unique sPin (select pin).
+
+The library has derived classes for the LC7821 and LC7823 as 
+these are pretty similar. The difference is the address used,
+and the LC7823 only has 7 switches instead of 8.
+
 The library is not tested with hardware yet.
 
-The library allows to set the individual switches or all switches in one call. 
-Furthermore the library caches the current state of the switches. 
-This allows to read back the state of the switches as bit mask or individually.
-
-The library is expected to work for the LC7821 and LC7823 too.
-These have their own (derived) classes.
+Note the LC782x devices are old and may be obsolete.
 
 Feedback, as always, is welcome.
 

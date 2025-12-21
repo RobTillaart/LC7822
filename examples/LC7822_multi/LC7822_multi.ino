@@ -30,8 +30,21 @@ void setup()
   LC2.setAll(0);  
   LC3.setAll(0);
 
-  //  should print zero twice.
+  //  should print 255 0 0.
   LC1.setAll(255);
+  Serial.println(LC1.getAll());
+  Serial.println(LC2.getAll());
+  Serial.println(LC3.getAll());
+
+  //  should print 255 255 0.
+  LC2.setAll(255);
+  Serial.println(LC1.getAll());
+  Serial.println(LC2.getAll());
+  Serial.println(LC3.getAll());
+
+  //  should print 255 255 255.
+  LC3.setAll(255);
+  Serial.println(LC1.getAll());
   Serial.println(LC2.getAll());
   Serial.println(LC3.getAll());
 }
