@@ -20,15 +20,11 @@ Arduino library for the LC7822 8 channel analogue switch.
 
 This library is to use the LC7821/22/23 with an Arduino.
 
-The library allows to set the switches induvidually or set all 
+The library allows to set the switches individually or set all 
 switches in one call. 
 Furthermore the library caches the current state of the switches. 
 This allows to read back the state of the switches either as a
 bit mask or read them individually (from cache).
-
-The library uses a fixed address for the device, but allows 
-multiple devices on the same "data pins" as every object should
-have an unique sPin (select pin).
 
 The library has derived classes for the LC7821 and LC7823 as 
 these are pretty similar. The difference is the address used,
@@ -36,15 +32,45 @@ and the LC7823 only has 7 switches instead of 8.
 
 The library is not tested with hardware yet.
 
-Note the LC782x devices are old and may be obsolete.
+Note the LC782x devices are relative old and may seem obsolete,
+however they are still available online.
 
 Feedback, as always, is welcome.
 
 
+### Mode operandi
+
+The library has two modi operandi. 
+
+The first is if the **sPin** has a hardwired connection, meaning the 
+device has a hardcoded address. 
+Then the sPin does not need to be set in the constructor (or set to 255).
+The user muset set the address in the **begin(address)** call so
+the device uses the right address to communicate.
+This mode is used if the library needs to control one device,
+or two devices that share the data, clock and se pins.
+See example **LC7822_two_device.ino**
+
+In the second mode operandi, is meant when there are more than two
+devices that share the data, clock and se pins. Every device needs 
+to have an unique **sPin** which works as a select pin as it changes
+the active address of the device. See section about address below.
+By setting all **sPins** to LOW and only one to HIGH one of the devices 
+is selected. The library takes care of this.
+In this scenario the **begin()** function must be called **without** 
+an address.
+
+See example **LC7822_multi.ino**
+
+
 ### Notes about hardware
 
-- remarks Jim, see link related.
+The LC7822 et al, can work with relative high voltages, up to 20Volts.
+They can be controlled directly with an Arduino as 5V is within specification.
+However it is adviced to add an appropriate optocoupler and invertor
+when voltages above the 5V are used with this device.
 
+Be sure to read the datasheet.
 
 
 ### Addresses
@@ -75,8 +101,12 @@ Thread that triggered the development of the library.
 
 - https://forum.arduino.cc/t/legacy-analogue-switch-controll-serial-commands/1419824/125
 
+Datasheet
 
-## Interface
+- https://www.haje.nl/pub/pdf/electronica/halfgeleiders/lc7821_lc7822_lc7823.pdf
+
+
+## Interface LC7822
 
 ```cpp
 #include "LC7822.h"
@@ -100,6 +130,17 @@ Thread that triggered the development of the library.
 
 - **void setMicroDelay(uint8_t udel)** set pulse delay.
 - **uint8_t getMicroDelay()** return set value
+
+
+## Interface LC7821
+
+- **bool begin(uint8_t address = 0x0D)** Initializes the IO pins, sets the address, only 0x0D or 0x05 are valid.
+
+
+## Interface LC7823
+
+- **bool begin(uint8_t address = 0x0F)** Initializes the IO pins, sets the address, only 0x0F or 0x07 are valid.
+
 
 
 ## Future

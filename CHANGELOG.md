@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - make **sPin** optional, needed for hardwired sPins.
 - add **getAddress()** convenience function.
 - add **LC7822_fixed_address.ino** example
+- add **LC7822_two_device.ino** example
 - update readme.md.
 - minor edits
 
