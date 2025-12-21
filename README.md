@@ -20,6 +20,9 @@ Arduino library for the LC7822 8 channel analogue switch.
 
 This library is to use the LC7821/22/23 with an Arduino.
 
+The LC782X series are typical used in audio applications as every
+switch is implemented twice a.k.a. stereo.
+
 The library allows to set the switches individually or set all 
 switches in one call. 
 Furthermore the library caches the current state of the switches. 
@@ -27,8 +30,9 @@ This allows to read back the state of the switches either as a
 bit mask or read them individually (from cache).
 
 The library has derived classes for the LC7821 and LC7823 as 
-these are pretty similar. The difference is the address used,
-and the LC7823 only has 7 switches instead of 8.
+these are pretty similar in how to control them. 
+The difference is the address used, and the internal setup of the switches. 
+Check the datasheet for the details.
 
 The library is not tested with hardware yet.
 
@@ -42,24 +46,23 @@ Feedback, as always, is welcome.
 
 The library has two modi operandi. 
 
-The first is if the **sPin** has a hardwired connection, meaning the 
-device has a hardcoded address. 
+The first mode operandi is if the **sPin** has a hardwired connection, 
+meaning the device has a hard coded / wired address. 
 Then the sPin does not need to be set in the constructor (or set to 255).
-The user muset set the address in the **begin(address)** call so
-the device uses the right address to communicate.
-This mode is used if the library needs to control one device,
-or two devices that share the data, clock and se pins.
+The user must set the address in the **begin(address)** call so
+the device uses the correct address to communicate.
+This mode is used if the library needs to control only one device,
+or two devices that share the data, clock and ce pins.
 See example **LC7822_two_device.ino**
 
-In the second mode operandi, is meant when there are more than two
-devices that share the data, clock and se pins. Every device needs 
+The second mode operandi is used when there are more than two
+devices that share the data, clock and ce pins. Every device needs 
 to have an unique **sPin** which works as a select pin as it changes
 the active address of the device. See section about address below.
 By setting all **sPins** to LOW and only one to HIGH one of the devices 
-is selected. The library takes care of this.
+is selected. 
 In this scenario the **begin()** function must be called **without** 
-an address.
-
+an address. The library takes care of the addressing.
 See example **LC7822_multi.ino**
 
 
@@ -85,14 +88,56 @@ Be sure to read the datasheet.
 |  LC7823  |  H  |  1   |  1   |  1   |  1   |   15  |  0x0F  |
 
 
-Effectively the S line sets the address bit A0, and works 
-in the library as a select pin. When S == LOW, the device 
-is not selected, when S == HIGH the device is selected.
+### Details switches LC7821
 
-So in theory one can use the S pin to select between multiple 
-devices that use the same set of data and clock pin (like SPI).
-Only the one with the HIGH sPin should react. 
-**This need to be verified**
+The LC7821 has three Left Commons (LCOMx) and three Right Commons (RCOMx).
+These are symmetrical and are switched simultaneously.
+
+LCOM1 can be connected to L1, L2, L3 and L4.  
+LCOM2 can be connected to L5 and L6.  
+LCOM3 can be connected to L7 and L8.  
+
+|  COMMON  |  L1  |  L2  |  L3  |  L4  |  L5  |  L6  |  L7  |  L8  |
+|:--------:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+|  LCOM1   |   X  |   X  |   X  |   X  |      |      |      |      |
+|  LCOM2   |      |      |      |      |   X  |   X  |      |      |
+|  LCOM3   |      |      |      |      |      |      |   X  |   X  |
+
+
+### Details switches LC7822
+
+The LC7822 has three Left Commons (LCOMx) and three Right Commons (RCOMx).
+These are symmetrical and are switched simultaneously.
+
+LCOM1 can be connected to L1, L2 and L3.  
+LCOM2 can be connected to L4, L5 and L6.  
+LCOM3 can be connected to L7 and L8.  
+
+|  COMMON  |  L1  |  L2  |  L3  |  L4  |  L5  |  L6  |  L7  |  L8  |
+|:--------:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+|  LCOM1   |   X  |   X  |   X  |      |      |      |      |      |
+|  LCOM2   |      |      |      |   X  |   X  |   X  |      |      |
+|  LCOM3   |      |      |      |      |      |      |   X  |   X  |
+
+
+### Details switches LC7823
+
+The LC7823 has four Left Commons (LCOMx) and four Right Commons (RCOMx).
+These are symmetrical and are switched simultaneously.
+Note: it has only 7 switches.
+
+LCOM1 can be connected to L1 and L2.  
+LCOM2 can be connected to L3 and L4.  
+LCOM3 can be connected to L5 and L6.  
+LCOM4 can be connected to L7.  
+Note: L8 is not used.  
+
+|  COMMON  |  L1  |  L2  |  L3  |  L4  |  L5  |  L6  |  L7  |  L8  |
+|:--------:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+|  LCOM1   |   X  |   X  |      |      |      |      |      |      |
+|  LCOM2   |      |      |   X  |   X  |      |      |      |      |
+|  LCOM3   |      |      |      |      |   X  |   X  |      |      |
+|  LCOM4   |      |      |      |      |      |      |   X  |      |
 
 
 ### Related
@@ -104,6 +149,7 @@ Thread that triggered the development of the library.
 Datasheet
 
 - https://www.haje.nl/pub/pdf/electronica/halfgeleiders/lc7821_lc7822_lc7823.pdf
+- https://www.haje.nl/product_info.php/products_id/22222  (LC7821)
 
 
 ## Interface LC7822
@@ -119,12 +165,14 @@ Datasheet
 - **bool reset()** resets the device, returns false if reset Pin is not defined.
 - **uint8_t getAddress()** returns cached address (debugging).
 
+
 ### Switches
 
 - **bool setAll(uint8_t value)** mask to set all switches in one call.
 - **uint8_t getAll()** get bit mask of all swicthes.
 - **bool setSwitch(uint8_t sw, bool val)** set one switch.
 - **bool getSwitch(uint8_t sw)** get state of single switch.
+
 
 ### Tune timing
 
@@ -140,6 +188,9 @@ Datasheet
 ## Interface LC7823
 
 - **bool begin(uint8_t address = 0x0F)** Initializes the IO pins, sets the address, only 0x0F or 0x07 are valid.
+
+
+## Reset
 
 
 
@@ -159,9 +210,9 @@ Datasheet
 
 #### Could
 
-- add error handling?
+- add error handling
 - add defaults for some parameters?
-
+- check address ranges (how for all)
 
 #### Wont
 
