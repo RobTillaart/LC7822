@@ -22,8 +22,10 @@ LC7822::LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, u
 }
 
 
-bool LC7822::begin()
+bool LC7822::begin(uint8_t address)
 {
+  _address = address;
+
   pinMode(_dataPin, OUTPUT);
   digitalWrite(_dataPin, LOW);
   pinMode(_clockPin, OUTPUT);
@@ -101,8 +103,8 @@ bool LC7822::getSwitch(uint8_t sw)
 //
 void LC7822::_updateDevice()
 {
-  //  select this device
-  digitalWrite(_sPin, HIGH);
+  //  select this device only if sPin is defined.
+  if (_sPin != 255) digitalWrite(_sPin, HIGH);
 
   //  send address == 4 bits
   for (uint8_t mask = 0x08; mask > 0x00; mask >>= 1)
@@ -127,15 +129,15 @@ void LC7822::_updateDevice()
     if (_microDelay) delayMicroseconds(_microDelay);
     digitalWrite(_clockPin, LOW);
   }
-  digitalWrite(_cePin, HIGH);
+  digitalWrite(_cePin, LOW);
 
-  digitalWrite(_sPin, LOW);
+  if (_sPin != 255) digitalWrite(_sPin, LOW);
 }
 
 
 //////////////////////////////////////////////////
 //
-//  DERIVED
+//  DERIVED LC7821
 //
 LC7821::LC7821(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, uint8_t resetPin)
         :LC7822(dataPin, clockPin, cePin, sPin, resetPin)
@@ -143,11 +145,25 @@ LC7821::LC7821(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, u
   _address = 13;
 }
 
+bool LC7821::begin(uint8_t address)
+{
+  return LC7822::begin(address);
+}
 
+
+//////////////////////////////////////////////////
+//
+//  DERIVED LC7823
+//
 LC7823::LC7823(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, uint8_t resetPin)
         :LC7822(dataPin, clockPin, cePin, sPin, resetPin)
 {
   _address = 15;
+}
+
+bool LC7823::begin(uint8_t address)
+{
+  return LC7822::begin(address);
 }
 
 

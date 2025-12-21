@@ -41,16 +41,22 @@ Note the LC782x devices are old and may be obsolete.
 Feedback, as always, is welcome.
 
 
+### Notes about hardware
+
+- remarks Jim, see link related.
+
+
+
 ### Addresses
 
-|   Type   |  S  |  A0  |  A1  |  A2  |  A3  |  decimal  |
-|:--------:|:---:|:----:|:----:|:----:|:----:|:---------:|
-|  LC7821  |  L  |  0   |  1   |  0   |  1   |     5     |
-|  LC7821  |  H  |  1   |  1   |  0   |  1   |    13     |
-|  LC7822  |  L  |  0   |  0   |  1   |  1   |     3     |
-|  LC7822  |  H  |  1   |  0   |  1   |  1   |    11     |
-|  LC7823  |  L  |  0   |  1   |  1   |  1   |     7     |
-|  LC7823  |  H  |  1   |  1   |  1   |  1   |    15     |
+|   Type   |  S  |  A0  |  A1  |  A2  |  A3  |  DEC  |   HEX  |
+|:--------:|:---:|:----:|:----:|:----:|:----:|:-----:|:------:|
+|  LC7821  |  L  |  0   |  1   |  0   |  1   |    5  |  0x05  |
+|  LC7821  |  H  |  1   |  1   |  0   |  1   |   13  |  0x0D  |
+|  LC7822  |  L  |  0   |  0   |  1   |  1   |    3  |  0x03  |
+|  LC7822  |  H  |  1   |  0   |  1   |  1   |   11  |  0x0B  |
+|  LC7823  |  L  |  0   |  1   |  1   |  1   |    7  |  0x07  |
+|  LC7823  |  H  |  1   |  1   |  1   |  1   |   15  |  0x0F  |
 
 
 Effectively the S line sets the address bit A0, and works 
@@ -65,7 +71,9 @@ Only the one with the HIGH sPin should react.
 
 ### Related
 
-Todo
+Thread that triggered the development of the library.
+
+- https://forum.arduino.cc/t/legacy-analogue-switch-controll-serial-commands/1419824/125
 
 
 ## Interface
@@ -76,8 +84,8 @@ Todo
 
 ### Constructor
 
-- **LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t selectPin, uint8_t resetPin = 255)** Constructor, set pins needed.
-- **bool begin()** Initializes the IO pins.
+- **LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin = 255, uint8_t resetPin = 255)** Constructor, set pins needed.
+- **bool begin(uint8_t address = 0x0B)** Initializes the IO pins, sets the address (0x0B or 0x03)
 - **bool reset()** resets the device, returns false if reset Pin is not defined.
 - **uint8_t getAddress()** returns cached address (debugging).
 
