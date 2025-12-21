@@ -21,7 +21,9 @@ Arduino library for the LC7822 8 channel analogue switch.
 This library is to use the LC7821/22/23 with an Arduino.
 
 The LC782X series are typical used in audio applications as every
-switch is implemented twice a.k.a. stereo.
+switch is implemented twice a.k.a. stereo. 
+However other applications that uses 2 synchronized channels are
+very well possible.
 
 The library allows to set the switches individually or set all 
 switches in one call. 
@@ -142,14 +144,24 @@ Note: L8 is not used.
 
 ### Related
 
-Thread that triggered the development of the library.
+#### Trigger of the development of the library.
 
 - https://forum.arduino.cc/t/legacy-analogue-switch-controll-serial-commands/1419824/125
 
-Datasheet
+#### Datasheet
 
 - https://www.haje.nl/pub/pdf/electronica/halfgeleiders/lc7821_lc7822_lc7823.pdf
 - https://www.haje.nl/product_info.php/products_id/22222  (LC7821)
+
+#### Multiplexers
+
+- https://github.com/RobTillaart/HC4051  (1x8 mux)
+- https://github.com/RobTillaart/HC4052  (2x4 mux)
+- https://github.com/RobTillaart/HC4053  (3x2 mux)
+- https://github.com/RobTillaart/HC4067  (1x16 mux)
+- https://github.com/RobTillaart/MAX14661 (2x16 mux, I2C)
+- https://tronixstuff.com/2013/08/05/part-review-74hc4067-16-channel-analog-multiplexerdemultiplexer/
+- https://www.gammon.com.au/forum/?id=11976
 
 
 ## Interface LC7822
@@ -192,6 +204,7 @@ Datasheet
 
 ## Reset
 
+to elaborate
 
 
 ## Future
@@ -204,15 +217,20 @@ Datasheet
 
 #### Should
 
-- add examples
-  - performance sketch
+- add examples (or document them).
   - array sketch
+  - use as a fast I2C switch?
+  - use for light in a car (left/right blink)
+  - audio muting 
+  - use as double pole switch, (disconnect 100%)
 
 #### Could
 
 - add error handling
 - add defaults for some parameters?
 - check address ranges (how for all)
+  - idea **bool begin(bool highBit = true)** no check needed.
+
 
 #### Wont
 
