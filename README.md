@@ -57,20 +57,20 @@ The first mode operandi is if the **sPin** has a hardwired connection,
 meaning the device has a hard coded / wired address. 
 Then the sPin does not need to be set in the constructor (or set to 255).
 The user must set the address in the **begin(address)** call so
-the device uses the correct address to communicate.
+the library uses the correct address to communicate.
 This mode is used if the library needs to control only one device,
 or two devices that share the data, clock and ce pins.
-See example **LC7822_two_device.ino**
+See example **LC7822_two_device.ino**.
 
 The second mode operandi is used when there are more than two
 devices that share the data, clock and ce pins. Every device needs 
 to have an unique **sPin** which works as a select pin as it changes
 the active address of the device. See section about address below.
-By setting all **sPins** to LOW and only one to HIGH one of the devices 
+By setting all **sPins** to LOW and only one to HIGH, one of the devices 
 is selected. 
 In this scenario the **begin()** function must be called **without** 
 an address. The library takes care of the addressing.
-See example **LC7822_multi.ino**
+See example **LC7822_multi.ino**.
 
 
 ### Notes about hardware
@@ -208,6 +208,7 @@ sets the address, only 0x0C and 0x0D are valid.
 - **bool reset()** resets the device, returns false if reset Pin is not defined.
 - **uint8_t getAddress()** returns cached address (debugging).
 
+
 ### Switches
 
 - **bool setAll(uint8_t value)** mask to set all switches in one call.
@@ -228,7 +229,7 @@ Note: Switch 0 ==> L1 + R1,  Switch 1 ==> L2 + R2 etc.
 - **uint8_t getMicroDelay()** return set value
 
 The datasheet specifies a delay of 1 us, however depending on the length
-of the wires etc a longer delay might be needed. 
+of the wires etc. a longer delay might be needed. 
 
 
 ## Interface LC7821
@@ -247,7 +248,7 @@ sets the address, only 0x0E and 0x0F are valid.
 
 ## Reset
 
-to elaborate (need HW test).
+To elaborate (need HW test).
 
 
 ## Future
@@ -256,9 +257,12 @@ to elaborate (need HW test).
 
 - improve documentation
 - get hardware to test
-- test reset() polarity.
+- test reset() polarity (need hardware)
 
 #### Should
+
+
+#### Could
 
 - add examples (or document them).
   - array sketch
@@ -266,16 +270,13 @@ to elaborate (need HW test).
   - use for light in a car (left/right blink)
   - audio muting
   - use as double pole switch, (disconnect 100%)
-- add derived classes for compatibles LC78211/2/3
-
-
-#### Could
-
 - add error handling
 - add defaults for some parameters?
 
 
 #### Wont
+
+- add derived classes for compatibles LC78211/2/3 (unless)
 
 
 ## Support
