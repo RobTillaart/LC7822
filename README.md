@@ -22,17 +22,17 @@ This library is to use the LC7821/22/23 with an Arduino.
 
 The LC782X series are typical used in audio applications as every
 switch is implemented twice a.k.a. stereo. 
-However other applications that uses 2 synchronized channels are
+However other applications that uses two synchronized channels are
 very well possible.
 
 The library allows to set the switches individually or set all 
-switches in one call. 
+switches in one call.
 Furthermore the library caches the current state of the switches. 
 This allows to read back the state of the switches either as a
 bit mask or read them individually (from cache).
 
-The library has derived classes for the LC7821 and LC7823 as 
-these are pretty similar in how to control them. 
+The library has a base class LC782X and three derived classes for 
+the LC7821, LC7822 and LC7823 as these are controlled in a similar way. 
 The difference is the address used, and the internal setup of the switches. 
 Check the datasheet for the details.
 
@@ -75,17 +75,19 @@ See example **LC7822_multi.ino**
 
 ### Notes about hardware
 
-The LC7822 et al, can work with relative high voltages, up to 20Volts.
+The LC7822 et al, can work with relative high voltages, up to ~20 Volts.
 They can be controlled directly with an Arduino as 5V is within specification.
-However it is adviced to add an appropriate optocoupler and invertor
-when voltages above the 5V are used with this device.
+It is adviced to add an appropriate optocoupler and optional invertor
+when voltages above the 5 Volt are used with this device.
 
 Be sure to read the datasheet.
 
+
 ### Compatibles
 
-There are newer type numbers LC78211, LC78212 and LC78213 that might 
-be compatible. At least they share the same addresses.
+There are newer devices with type numbers LC78211, LC78212 and LC78213 
+that are compatible with resp. LC7821, LC7822 and LC7823.
+Additional derived classes might be added.
 
 
 ### Addresses
@@ -98,6 +100,9 @@ be compatible. At least they share the same addresses.
 |  LC7822  |  H  |  1   |  1   |  0   |  1   |   13  |  0x0D  |
 |  LC7823  |  L  |  1   |  1   |  1   |  0   |   14  |  0x0E  |
 |  LC7823  |  H  |  1   |  1   |  1   |  1   |   15  |  0x0F  |
+
+Note the address bits are shown in MSB order, while the device
+need them in LSB order (see datasheet).
 
 
 ### Details switches LC7821
@@ -259,10 +264,10 @@ to elaborate (need HW test).
   - array sketch
   - use as a fast I2C switch?
   - use for light in a car (left/right blink)
-  - audio muting 
+  - audio muting
   - use as double pole switch, (disconnect 100%)
-- investigate compatibles LC78211/2/3
-  - optional add derived classes
+- add derived classes for compatibles LC78211/2/3
+
 
 #### Could
 
