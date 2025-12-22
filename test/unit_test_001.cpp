@@ -54,7 +54,7 @@ unittest(test_constructor)
   assertFalse(LC22.reset());
   assertEqual(LC22.getAddress(), 0x0D);
   assertTrue(LC22.begin(0x0C));
-  assertEqual(LC22.getAddress(), 0x0D);
+  assertEqual(LC22.getAddress(), 0x0C);
   fprintf(stderr, "\n");
 
   LC7823 LC23(4,5,6,7);  //  no reset Pin
@@ -62,7 +62,7 @@ unittest(test_constructor)
   assertFalse(LC23.reset());
   assertEqual(LC23.getAddress(), 0x0F);
   assertTrue(LC23.begin(0x0E));
-  assertEqual(LC23.getAddress(), 0x0F);
+  assertEqual(LC23.getAddress(), 0x0E);
   fprintf(stderr, "\n");
 }
 

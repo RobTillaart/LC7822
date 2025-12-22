@@ -10,7 +10,7 @@
 #include "LC7822.h"
 
 
-LC7822::LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, uint8_t resetPin)
+LC782X::LC782X(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, uint8_t resetPin)
 {
   _address  = 11;
   _dataPin  = dataPin;
@@ -22,7 +22,7 @@ LC7822::LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, u
 }
 
 
-bool LC7822::begin(uint8_t address)
+bool LC782X::begin(uint8_t address)
 {
   _address = address;
 
@@ -44,7 +44,7 @@ bool LC7822::begin(uint8_t address)
 }
 
 
-bool LC7822::reset()
+bool LC782X::reset()
 {
   if (_resetPin != 255)
   {
@@ -60,7 +60,7 @@ bool LC7822::reset()
 }
 
 
-bool LC7822::setAll(uint8_t value)
+bool LC782X::setAll(uint8_t value)
 {
   _switches = value;
   _updateDevice();
@@ -68,13 +68,13 @@ bool LC7822::setAll(uint8_t value)
 }
 
 
-uint8_t LC7822::getAll()
+uint8_t LC782X::getAll()
 {
   return _switches;
 }
 
 
-bool LC7822::setSwitch(uint8_t sw, bool val)
+bool LC782X::setSwitch(uint8_t sw, bool val)
 {
   if (sw > 7) return false;
   if (val)  //  ON
@@ -90,7 +90,7 @@ bool LC7822::setSwitch(uint8_t sw, bool val)
 }
 
 
-bool LC7822::getSwitch(uint8_t sw)
+bool LC782X::getSwitch(uint8_t sw)
 {
   if (sw > 7) return false;
   return _switches & (1 << sw);
@@ -101,7 +101,7 @@ bool LC7822::getSwitch(uint8_t sw)
 //
 //  PROTECTED
 //
-void LC7822::_updateDevice()
+void LC782X::_updateDevice()
 {
   //  select this device only if sPin is defined.
   if (_sPin != 255) digitalWrite(_sPin, HIGH);
@@ -140,14 +140,30 @@ void LC7822::_updateDevice()
 //  DERIVED LC7821
 //
 LC7821::LC7821(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, uint8_t resetPin)
-        :LC7822(dataPin, clockPin, cePin, sPin, resetPin)
+        :LC782X(dataPin, clockPin, cePin, sPin, resetPin)
 {
-  _address = 13;
+  _address = 0x0B;
 }
 
 bool LC7821::begin(uint8_t address)
 {
-  return LC7822::begin(address);
+  return LC782X::begin(address);
+}
+
+
+//////////////////////////////////////////////////
+//
+//  DERIVED LC7822
+//
+LC7822::LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, uint8_t resetPin)
+        :LC782X(dataPin, clockPin, cePin, sPin, resetPin)
+{
+  _address = 0x0D;
+}
+
+bool LC7822::begin(uint8_t address)
+{
+  return LC782X::begin(address);
 }
 
 
@@ -156,14 +172,14 @@ bool LC7821::begin(uint8_t address)
 //  DERIVED LC7823
 //
 LC7823::LC7823(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, uint8_t resetPin)
-        :LC7822(dataPin, clockPin, cePin, sPin, resetPin)
+        :LC782X(dataPin, clockPin, cePin, sPin, resetPin)
 {
-  _address = 15;
+  _address = 0x0F;
 }
 
 bool LC7823::begin(uint8_t address)
 {
-  return LC7822::begin(address);
+  return LC782X::begin(address);
 }
 
 

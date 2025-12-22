@@ -35,7 +35,6 @@ void setup()
   Serial.print(LC2.getAll());
   Serial.print("  ");
   Serial.println(LC3.getAll());
-  Serial.println();
 
   //  should print 255 0 0.
   LC1.setAll(255);
@@ -44,7 +43,6 @@ void setup()
   Serial.print(LC2.getAll());
   Serial.print("  ");
   Serial.println(LC3.getAll());
-  Serial.println();
 
   //  should print 255 255 0.
   LC2.setAll(255);
@@ -53,7 +51,6 @@ void setup()
   Serial.print(LC2.getAll());
   Serial.print("  ");
   Serial.println(LC3.getAll());
-  Serial.println();
 
   //  should print 255 255 255.
   LC3.setAll(255);
@@ -62,7 +59,6 @@ void setup()
   Serial.print(LC2.getAll());
   Serial.print("  ");
   Serial.println(LC3.getAll());
-  Serial.println();
 }
 
 

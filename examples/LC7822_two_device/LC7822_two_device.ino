@@ -34,9 +34,9 @@ void setup()
   LC1.setAll(0);
   LC2.setAll(0);
   //  should print 0 0
-  Serial.print(LC1.getAll());
+  Serial.print(LC1.getAll(), HEX);
   Serial.print("  ");
-  Serial.println(LC2.getAll());
+  Serial.println(LC2.getAll(), HEX);
   Serial.println();
 
   //  should print 255 0
@@ -44,28 +44,24 @@ void setup()
   Serial.print(LC1.getAll());
   Serial.print("  ");
   Serial.println(LC2.getAll());
-  Serial.println();
 
   //  should print 255 255
   LC2.setAll(255);
   Serial.print(LC1.getAll());
   Serial.print("  ");
   Serial.println(LC2.getAll());
-  Serial.println();
 
   //  should print 0 255
   LC1.setAll(0);
   Serial.print(LC1.getAll());
   Serial.print("  ");
   Serial.println(LC2.getAll());
-  Serial.println();
 
   //  should print 0 0
   LC2.setAll(0);
   Serial.print(LC1.getAll());
   Serial.print("  ");
   Serial.println(LC2.getAll());
-  Serial.println();
 }
 
 

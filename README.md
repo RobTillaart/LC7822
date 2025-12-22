@@ -259,9 +259,7 @@ to elaborate
 
 - add error handling
 - add defaults for some parameters?
-- check address ranges (how for all)
-  - idea **bool begin(bool highBit = true)** no check needed.
-  - add a base class.
+- check address ranges
 
 
 #### Wont
