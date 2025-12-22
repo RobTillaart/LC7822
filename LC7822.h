@@ -3,14 +3,14 @@
 //    FILE: LC7822.h
 //  AUTHOR: Rob Tillaart
 //    DATE: 2025-12-20
-// VERSION: 0.1.1
+// VERSION: 0.2.0
 // PURPOSE: Arduino library for the LC7822 8 channel analogue switch.
 //     URL: https://github.com/RobTillaart/LC7822
 
 
 #include "Arduino.h"
 
-#define LC7822_LIB_VERSION                (F("0.1.1"))
+#define LC7822_LIB_VERSION                (F("0.2.0"))
 
 
 //  base class

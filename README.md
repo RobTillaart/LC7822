@@ -44,6 +44,11 @@ however they are still available online.
 Feedback, as always, is welcome.
 
 
+### Breaking change 0.2.0
+
+Many changes, so pre 0.2.0 versions are obsolete.
+
+
 ### Mode operandi
 
 The library has two modi operandi. 
@@ -187,14 +192,16 @@ specific application.
 #include "LC7822.h"
 ```
 
+Note LC782X is the base class.
+
+
 ### Constructor
 
 - **LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin = 255, uint8_t resetPin = 255)** Constructor, set pins needed.
 - **bool begin(uint8_t address = 0x0D)** Initializes the IO pins, 
-sets the address, only 0x0A and 0x0B are valid.
+sets the address, only 0x0C and 0x0D are valid.
 - **bool reset()** resets the device, returns false if reset Pin is not defined.
 - **uint8_t getAddress()** returns cached address (debugging).
-
 
 ### Switches
 
@@ -221,19 +228,21 @@ of the wires etc a longer delay might be needed.
 
 ## Interface LC7821
 
+- **LC7821(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin = 255, uint8_t resetPin = 255)** Constructor, set pins needed.
 - **bool begin(uint8_t address = 0x0B)** Initializes the IO pins, 
 sets the address, only 0x0A and 0x0B are valid.
 
 
 ## Interface LC7823
 
+- **LC7823(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin = 255, uint8_t resetPin = 255)** Constructor, set pins needed.
 - **bool begin(uint8_t address = 0x0F)** Initializes the IO pins, 
 sets the address, only 0x0E and 0x0F are valid.
 
 
 ## Reset
 
-to elaborate
+to elaborate (need HW test).
 
 
 ## Future
@@ -252,14 +261,13 @@ to elaborate
   - use for light in a car (left/right blink)
   - audio muting 
   - use as double pole switch, (disconnect 100%)
-- investigate compatibles
+- investigate compatibles LC78211/2/3
   - optional add derived classes
 
 #### Could
 
 - add error handling
 - add defaults for some parameters?
-- check address ranges
 
 
 #### Wont
