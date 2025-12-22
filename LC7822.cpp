@@ -2,7 +2,7 @@
 //    FILE: LC7822.cpp
 //  AUTHOR: Rob Tillaart
 //    DATE: 2025-12-20
-// VERSION: 0.1.0
+// VERSION: 0.1.1
 // PURPOSE: Arduino library for the LC7822 8 channel analogue switch.
 //     URL: https://github.com/RobTillaart/LC7822
 
@@ -106,8 +106,8 @@ void LC7822::_updateDevice()
   //  select this device only if sPin is defined.
   if (_sPin != 255) digitalWrite(_sPin, HIGH);
 
-  //  send address == 4 bits
-  for (uint8_t mask = 0x08; mask > 0x00; mask >>= 1)
+  //  send address == 4 bits - A0 first
+  for (uint8_t mask = 0x01; mask < 0x10; mask <<= 1)
   {
     digitalWrite(_dataPin, (_address & mask));
     if (_microDelay) delayMicroseconds(_microDelay);
@@ -116,12 +116,12 @@ void LC7822::_updateDevice()
     digitalWrite(_clockPin, LOW);
   }
 
-  // send data == 8 bits
+  // send data == 8 bits - SW1 first
   if (_microDelay) delayMicroseconds(_microDelay);
   digitalWrite(_cePin, HIGH);
   if (_microDelay) delayMicroseconds(_microDelay);
 
-  for (uint8_t mask = 0x80; mask > 0x00; mask >>= 1)
+  for (uint8_t mask = 0x01; mask != 0x00; mask <<= 1)
   {
     digitalWrite(_dataPin, (_switches & mask));
     if (_microDelay) delayMicroseconds(_microDelay);

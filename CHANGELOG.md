@@ -8,12 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.1.1] - 2025-12-21
 - fix #2, cePin bug
-- add address as parameter to **begin()**
+- fix #3, add address as parameter to **begin()**
+- fix #5, addresses of the devices.
+- fix shift order in updateDevice()
 - make **sPin** optional, needed for hardwired sPins.
 - add **getAddress()** convenience function.
 - add **LC7822_fixed_address.ino** example
 - add **LC7822_two_device.ino** example
-- update readme.md.
+- update readme.md a lot.
 - minor edits
 
 ## [0.1.0] - 2025-12-20

@@ -22,11 +22,11 @@ void setup()
   Serial.println(LC7822_LIB_VERSION);
   Serial.println();
 
-  LC1.begin(0x05);
+  LC1.begin(0x0A);
   Serial.println(LC1.getAddress());
-  LC2.begin(0x03);
+  LC2.begin(0x0C);
   Serial.println(LC2.getAddress());
-  LC3.begin(0x07);
+  LC3.begin(0x0E);
   Serial.println(LC3.getAddress());
 }
 

@@ -19,7 +19,7 @@ public:
   LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin,
           uint8_t sPin = 255, uint8_t resetPin = 255);
 
-  bool    begin(uint8_t address = 11);
+  bool    begin(uint8_t address = 0x0D);
   bool    reset();
   uint8_t getAddress() { return _address; };
 
@@ -58,7 +58,7 @@ class LC7821 : public LC7822
 public:
   LC7821(uint8_t dataPin, uint8_t clockPin, uint8_t cePin,
           uint8_t sPin = 255, uint8_t resetPin = 255);
-  bool begin(uint8_t address = 0x0D);
+  bool begin(uint8_t address = 0x0B);
 };
 
 

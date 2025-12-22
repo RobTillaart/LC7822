@@ -24,8 +24,8 @@ void setup()
   Serial.println(LC7822_LIB_VERSION);
   Serial.println();
 
-  LC1.begin(0x03);
-  LC2.begin(0x0B);
+  LC1.begin(0x0C);
+  LC2.begin(0x0D);
   Serial.println(LC1.getAddress());
   Serial.println(LC2.getAddress());
   Serial.println();
@@ -33,31 +33,39 @@ void setup()
   //  start explicitly all off.
   LC1.setAll(0);
   LC2.setAll(0);
+  //  should print 0 0
+  Serial.print(LC1.getAll());
+  Serial.print("  ");
+  Serial.println(LC2.getAll());
+  Serial.println();
 
   //  should print 255 0
   LC1.setAll(255);
-  Serial.println(LC1.getAll());
+  Serial.print(LC1.getAll());
+  Serial.print("  ");
   Serial.println(LC2.getAll());
   Serial.println();
 
   //  should print 255 255
   LC2.setAll(255);
-  Serial.println(LC1.getAll());
+  Serial.print(LC1.getAll());
+  Serial.print("  ");
   Serial.println(LC2.getAll());
   Serial.println();
 
   //  should print 0 255
   LC1.setAll(0);
-  Serial.println(LC1.getAll());
+  Serial.print(LC1.getAll());
+  Serial.print("  ");
   Serial.println(LC2.getAll());
   Serial.println();
 
   //  should print 0 0
   LC2.setAll(0);
-  Serial.println(LC1.getAll());
+  Serial.print(LC1.getAll());
+  Serial.print("  ");
   Serial.println(LC2.getAll());
   Serial.println();
-
 }
 
 

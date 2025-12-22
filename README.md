@@ -77,16 +77,21 @@ when voltages above the 5V are used with this device.
 
 Be sure to read the datasheet.
 
+### Compatibles
+
+There are newer type numbers LC78211, LC78212 and LC78213 that might 
+be compatible. At least they share the same addresses.
+
 
 ### Addresses
 
-|   Type   |  S  |  A0  |  A1  |  A2  |  A3  |  DEC  |   HEX  |
+|   Type   |  S  |  A3  |  A2  |  A1  |  A0  |  DEC  |   HEX  |
 |:--------:|:---:|:----:|:----:|:----:|:----:|:-----:|:------:|
-|  LC7821  |  L  |  0   |  1   |  0   |  1   |    5  |  0x05  |
-|  LC7821  |  H  |  1   |  1   |  0   |  1   |   13  |  0x0D  |
-|  LC7822  |  L  |  0   |  0   |  1   |  1   |    3  |  0x03  |
-|  LC7822  |  H  |  1   |  0   |  1   |  1   |   11  |  0x0B  |
-|  LC7823  |  L  |  0   |  1   |  1   |  1   |    7  |  0x07  |
+|  LC7821  |  L  |  1   |  0   |  1   |  0   |   10  |  0x0A  |
+|  LC7821  |  H  |  1   |  0   |  1   |  1   |   11  |  0x0B  |
+|  LC7822  |  L  |  1   |  1   |  0   |  0   |   12  |  0x0C  |
+|  LC7822  |  H  |  1   |  1   |  0   |  1   |   13  |  0x0D  |
+|  LC7823  |  L  |  1   |  1   |  1   |  0   |   14  |  0x0E  |
 |  LC7823  |  H  |  1   |  1   |  1   |  1   |   15  |  0x0F  |
 
 
@@ -105,6 +110,10 @@ LCOM3 can be connected to L7 and L8.
 |  LCOM2   |      |      |      |      |   X  |   X  |      |      |
 |  LCOM3   |      |      |      |      |      |      |   X  |   X  |
 
+Note the library does not check if e.g. LCOM1 is connected to more 
+than one output as the library does not know the logic needed in a 
+specific application.
+
 
 ### Details switches LC7822
 
@@ -120,6 +129,10 @@ LCOM3 can be connected to L7 and L8.
 |  LCOM1   |   X  |   X  |   X  |      |      |      |      |      |
 |  LCOM2   |      |      |      |   X  |   X  |   X  |      |      |
 |  LCOM3   |      |      |      |      |      |      |   X  |   X  |
+
+Note the library does not check if e.g. LCOM1 is connected to more 
+than one output as the library does not know the logic needed in a 
+specific application.
 
 
 ### Details switches LC7823
@@ -140,6 +153,10 @@ Note: L8 is not used.
 |  LCOM2   |      |      |   X  |   X  |      |      |      |      |
 |  LCOM3   |      |      |      |      |   X  |   X  |      |      |
 |  LCOM4   |      |      |      |      |      |      |   X  |      |
+
+Note the library does not check if e.g. LCOM1 is connected to more 
+than one output as the library does not know the logic needed in a 
+specific application.
 
 
 ### Related
@@ -173,7 +190,8 @@ Note: L8 is not used.
 ### Constructor
 
 - **LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin = 255, uint8_t resetPin = 255)** Constructor, set pins needed.
-- **bool begin(uint8_t address = 0x0B)** Initializes the IO pins, sets the address (0x0B or 0x03)
+- **bool begin(uint8_t address = 0x0D)** Initializes the IO pins, 
+sets the address, only 0x0A and 0x0B are valid.
 - **bool reset()** resets the device, returns false if reset Pin is not defined.
 - **uint8_t getAddress()** returns cached address (debugging).
 
@@ -181,9 +199,15 @@ Note: L8 is not used.
 ### Switches
 
 - **bool setAll(uint8_t value)** mask to set all switches in one call.
-- **uint8_t getAll()** get bit mask of all swicthes.
-- **bool setSwitch(uint8_t sw, bool val)** set one switch.
-- **bool getSwitch(uint8_t sw)** get state of single switch.
+- **uint8_t getAll()** get bit mask of all switches.
+- **bool setSwitch(uint8_t switch, bool val)** set one switch.
+The parameter switch must be in the range 0..7. 
+Returns false if switch is out of range.
+- **bool getSwitch(uint8_t switch)** get state of single switch.
+The parameter switch must be in the range 0..7. 
+Returns false if switch is out of range.
+
+Note: Switch 0 ==> L1 + R1,  Switch 1 ==> L2 + R2 etc.
 
 
 ### Tune timing
@@ -191,15 +215,20 @@ Note: L8 is not used.
 - **void setMicroDelay(uint8_t udel)** set pulse delay.
 - **uint8_t getMicroDelay()** return set value
 
+The datasheet specifies a delay of 1 us, however depending on the length
+of the wires etc a longer delay might be needed. 
+
 
 ## Interface LC7821
 
-- **bool begin(uint8_t address = 0x0D)** Initializes the IO pins, sets the address, only 0x0D or 0x05 are valid.
+- **bool begin(uint8_t address = 0x0B)** Initializes the IO pins, 
+sets the address, only 0x0A and 0x0B are valid.
 
 
 ## Interface LC7823
 
-- **bool begin(uint8_t address = 0x0F)** Initializes the IO pins, sets the address, only 0x0F or 0x07 are valid.
+- **bool begin(uint8_t address = 0x0F)** Initializes the IO pins, 
+sets the address, only 0x0E and 0x0F are valid.
 
 
 ## Reset
@@ -223,6 +252,8 @@ to elaborate
   - use for light in a car (left/right blink)
   - audio muting 
   - use as double pole switch, (disconnect 100%)
+- investigate compatibles
+  - optional add derived classes
 
 #### Could
 
@@ -230,6 +261,7 @@ to elaborate
 - add defaults for some parameters?
 - check address ranges (how for all)
   - idea **bool begin(bool highBit = true)** no check needed.
+  - add a base class.
 
 
 #### Wont
