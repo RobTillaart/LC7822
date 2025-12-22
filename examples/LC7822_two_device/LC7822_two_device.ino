@@ -26,8 +26,8 @@ void setup()
 
   LC1.begin(0x0C);
   LC2.begin(0x0D);
-  Serial.println(LC1.getAddress());
-  Serial.println(LC2.getAddress());
+  Serial.println(LC1.getAddress(), HEX);
+  Serial.println(LC2.getAddress(), HEX);
   Serial.println();
 
   //  start explicitly all off.
@@ -37,7 +37,6 @@ void setup()
   Serial.print(LC1.getAll(), HEX);
   Serial.print("  ");
   Serial.println(LC2.getAll(), HEX);
-  Serial.println();
 
   //  should print 255 0
   LC1.setAll(255);

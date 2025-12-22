@@ -8,9 +8,9 @@
 #include "LC7822.h"
 
 //  LC7822(dataPin, clockPin, cePin, sPin, resetPin);
-LC7822 LC1(4, 5, 6, 7);  //  no resetPin.
-LC7822 LC2(4, 5, 6, 8);  //  no resetPin.
-LC7822 LC3(4, 5, 6, 9);  //  no resetPin.
+LC7822 LC1(4, 5, 6, 7);  //  no resetPin, unique sPin
+LC7822 LC2(4, 5, 6, 8);  //  no resetPin, unique sPin
+LC7822 LC3(4, 5, 6, 9);  //  no resetPin, unique sPin
 
 
 void setup()
@@ -22,9 +22,9 @@ void setup()
   Serial.println(LC7822_LIB_VERSION);
   Serial.println();
 
-  LC1.begin();  //  use default addresses
-  LC2.begin();  //  use default addresses
-  LC3.begin();  //  use default addresses
+  Serial.println(LC1.begin());  //  use default addresses
+  Serial.println(LC2.begin());  //  use default addresses
+  Serial.println(LC3.begin());  //  use default addresses
 
   LC1.setAll(0);
   LC2.setAll(0);

@@ -87,7 +87,7 @@ Be sure to read the datasheet.
 
 There are newer devices with type numbers LC78211, LC78212 and LC78213 
 that are compatible with resp. LC7821, LC7822 and LC7823.
-Additional derived classes might be added.
+(although these seem to be obsolete too).
 
 
 ### Addresses

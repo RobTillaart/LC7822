@@ -12,7 +12,7 @@
 
 LC782X::LC782X(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, uint8_t resetPin)
 {
-  _address  = 11;
+  _address  = 0;
   _dataPin  = dataPin;
   _clockPin = clockPin;
   _cePin    = cePin;
@@ -147,7 +147,7 @@ LC7821::LC7821(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, u
 
 bool LC7821::begin(uint8_t address)
 {
-  if ((address != 0x0A) || (address != 0x0B)) return false;
+  if ((address != 0x0A) && (address != 0x0B)) return false;
   return LC782X::begin(address);
 }
 
@@ -164,7 +164,7 @@ LC7822::LC7822(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, u
 
 bool LC7822::begin(uint8_t address)
 {
-  if ((address != 0x0C) || (address != 0x0D)) return false;
+  if ((address != 0x0C) && (address != 0x0D)) return false;
   return LC782X::begin(address);
 }
 
@@ -181,7 +181,7 @@ LC7823::LC7823(uint8_t dataPin, uint8_t clockPin, uint8_t cePin, uint8_t sPin, u
 
 bool LC7823::begin(uint8_t address)
 {
-  if ((address != 0x0E) || (address != 0x0F)) return false;
+  if ((address != 0x0E) && (address != 0x0F)) return false;
   return LC782X::begin(address);
 }
 
