@@ -32,9 +32,12 @@ bool LC782X::begin(uint8_t address)
   digitalWrite(_clockPin, LOW);
   pinMode(_cePin, OUTPUT);
   digitalWrite(_cePin, LOW);
-  pinMode(_sPin, OUTPUT);
-  digitalWrite(_sPin, LOW);
-
+  //  optional pins.
+  if (_sPin != 255)
+  {
+    pinMode(_sPin, OUTPUT);
+    digitalWrite(_sPin, LOW);
+  }
   if (_resetPin != 255)
   {
     pinMode(_resetPin, OUTPUT);

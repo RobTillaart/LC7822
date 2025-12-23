@@ -171,7 +171,7 @@ specific application.
 
 ### Related
 
-#### Trigger of the development of the library.
+#### Trigger for the development of the library.
 
 - https://forum.arduino.cc/t/legacy-analogue-switch-controll-serial-commands/1419824/125
 
@@ -266,16 +266,24 @@ To elaborate (need HW test).
 
 - add examples (or document them).
   - array sketch
-  - use as a fast I2C switch?
-  - use for light in a car (left/right blink)
-  - audio muting
-  - use as double pole switch, (disconnect 100%)
-- add error handling
+  - use device as input selector
+    - audio sources + mute
+    - MIDI devices
+  - use device as output selector
+    - fast I2C switch? => connect all LCOMx together as SDA and RCOMX as SCL
+    - use to multiplex (hardware) Serial TX RX (RS485 etc).
+  - use for symmetrical light in a car (left/right front/rear)
+  - use as double pole switch, (disconnect an device 100%)
+    - right 12 V motor, left feedback channel to uProc (use PCF8574 to read 8 pin states).
+    - right 12 V motor, left feedback via LED to user
+  - synchronized motor control e.g. LC7823, 3x {direction, enable} pairs
 - add defaults for some parameters?
+- add #define LC78XX_NO_PIN 255
 
 
 #### Wont
 
+- add error handling
 - add derived classes for compatibles LC78211/2/3 (unless)
 
 
