@@ -15,7 +15,7 @@ LC7822 LC(4,5,6,7);  //  no reset Pin.
 
 //  prepared masks
 uint8_t masks[10] = { 0x00, 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, 0xDE, 0xFF, 0x55};
-uint8_t index = 0;
+uint8_t idx = 0;
 
 
 void setup()
@@ -41,9 +41,9 @@ void loop()
   if (Serial.available())
   {
     Serial.read();
-    LC.setAll(masks[index]);
-    index++;
-    if (index >= 10) index = 0;
+    LC.setAll(masks[idx]);
+    idx++;
+    if (idx >= 10) idx = 0;
   }
 }
 
